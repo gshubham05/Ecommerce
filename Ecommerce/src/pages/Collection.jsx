@@ -9,6 +9,7 @@ const Collection = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [category, setCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortType, setSortType] = useState('relevant');
 
@@ -17,6 +18,15 @@ const Collection = () => {
     const value = e.target.value;
     setCategory((prev) =>
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
+  };
+
+  const toggleSubCategory = (e) => {
+    const value = e.target.value;
+    console.log(value)
+    setSubCategory((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+  
     );
   };
 
@@ -35,6 +45,13 @@ const Collection = () => {
         category.includes(product.category)
       );
     }
+    // Apply Sub category filter
+    if (subCategory.length > 0) {
+      updatedProducts = updatedProducts.filter((product) =>
+        subCategory.includes(product.subCategory)
+      );
+    }
+
 
     // Apply search filter
     if (searchQuery) {
@@ -49,9 +66,9 @@ const Collection = () => {
     } else if (sortType === 'high-low') {
       updatedProducts = updatedProducts.sort((a, b) => b.price - a.price);
     }
-
+    console.log(updatedProducts)
     setFilteredProducts(updatedProducts);
-  }, [category, searchQuery, sortType, products]);
+  }, [category, searchQuery, sortType, products,subCategory]);
 
   return (
     <div className='flex flex-col sm:flex-row gap-4 pt-10 border-t'>
@@ -68,7 +85,7 @@ const Collection = () => {
             className={`h-3 sm:hidden ${showFilter ? 'rotate-90' : ''}`}
           />
         </p>
-        
+
         <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
           <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
@@ -94,13 +111,28 @@ const Collection = () => {
             onChange={handleSearch}
           />
         </div>
+
+        <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+          <p className='mb-3 text-sm font-medium'>CATEGORIES</p>
+          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+            <label>
+              <input type="checkbox" className='w-3' value="Topwear" onChange={toggleSubCategory} /> Topwear
+            </label>
+            <label>
+              <input type="checkbox" className='w-3' value="Bottomwear" onChange={toggleSubCategory} /> Bottomwear
+            </label>
+            <label>
+              <input type="checkbox" className='w-3' value="Winterwear" onChange={toggleSubCategory} /> Winterwear
+            </label>
+          </div>
+        </div>
       </div>
 
       {/* Product Listing */}
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title t1={'ALL'} t2={'COLLECTIONS'} />
-          
+
           {/* Sorting Dropdown */}
           <select
             onChange={(e) => setSortType(e.target.value)}
@@ -116,7 +148,7 @@ const Collection = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product, index) => (
-              <ProductItem key={index} {...product} />
+              <ProductItem key={index} id={product._id} name={product.name} image={product.image} price={product.price} />
             ))
           ) : (
             <p>No products found.</p>

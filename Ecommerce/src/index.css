@@ -15,6 +15,10 @@ a.active hr{
     display: block;
 }
 
+::-webkit-scrollbar{
+    display: none;
+}
+
 .prata-regular {
     font-family: "Prata", serif;
     font-weight: 400;
