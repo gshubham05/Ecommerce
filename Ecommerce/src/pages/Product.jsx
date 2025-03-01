@@ -14,7 +14,7 @@ const Product = () => {
     products.map((i) => {
       if (i._id == productId) {
         setProductData(i)
-        console.log(i)
+        // console.log(i)
         setImage(i.image[0])
         return null
       }
@@ -71,10 +71,11 @@ const Product = () => {
         </div>
       </div>
       {/* Description */}
-      <div className="mt-20"></div>
+      <div className="mt-20">
       <div className="flex">
         <p className='border px-5 py-3 text-sm'>Description</p>
         <p className='border px-5 py-3 text-sm'>Reviews (122)</p>
+      </div>
       </div>
       <div className="flex flex-col gap-4 border p-6 text-sm text-gray-500">
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla optio voluptatibus nemo consequatur illum a rem unde obcaecati dolore deleniti impedit recusandae ipsum, harum incidunt? Recusandae quisquam optio ab assumenda culpa amet, asperiores totam! Omnis expedita molestiae, nisi labore exercitationem recusandae ullam! Corrupti, rem inventore placeat cum facere nisi suscipit?</p>

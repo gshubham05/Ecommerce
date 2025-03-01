@@ -23,7 +23,7 @@ const Collection = () => {
 
   const toggleSubCategory = (e) => {
     const value = e.target.value;
-    console.log(value)
+    // console.log(value)
     setSubCategory((prev) =>
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
   
@@ -66,7 +66,7 @@ const Collection = () => {
     } else if (sortType === 'high-low') {
       updatedProducts = updatedProducts.sort((a, b) => b.price - a.price);
     }
-    console.log(updatedProducts)
+    // console.log(updatedProducts)
     setFilteredProducts(updatedProducts);
   }, [category, searchQuery, sortType, products,subCategory]);
 
